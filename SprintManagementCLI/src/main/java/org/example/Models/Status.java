@@ -1,6 +1,6 @@
-package org.example;
+package org.example.Models;
 
-enum Status {
+public enum Status {
     Before("    Before"), InProgress("Inprogress"), Done("      Done");
     private String label;
 
