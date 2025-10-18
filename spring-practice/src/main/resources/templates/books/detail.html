@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 상세</title>
+</head>
+<body>
+    <h1 th:text="${book.author}">default author</h1>
+    <h1 th:text="${book.isbn}">default author</h1>
+    <h1 th:text="${book.description}">default author</h1>
+    <a th:href="@{/books}">돌아가기</a>
+</body>
+</html>

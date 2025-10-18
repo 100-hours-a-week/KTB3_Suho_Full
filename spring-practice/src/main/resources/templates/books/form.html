@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>도서 등록 폼</title>
+</head>
+<body>
+    <h1>새 도서 등록페이지</h1>
+    <form method="post" action="/books" th:object="${bookDto}">
+        <div>
+            <label>제목: </label>
+            <input type="text" th:field="*{title}">
+            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+        </div>
+        <div>
+            <label>저자: </label>
+            <input type="text" th:field="*{author}">
+            <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+        </div>
+        <div>
+            <label>ISBN: </label>
+            <input type="text" th:field="*{isbn}">
+            <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+        </div>
+        <div>
+            <label>소개: </label>
+            <input type="text" th:field="*{description}">
+            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+        </div>
+        <br/>
+        <button type="submit">저장</button>
+    </form>
+    <a th:href="@{/books}">취소</a>
+</body>
+</html>
