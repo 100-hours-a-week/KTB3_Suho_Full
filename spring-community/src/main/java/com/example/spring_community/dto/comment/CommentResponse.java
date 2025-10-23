@@ -13,15 +13,8 @@ public class CommentResponse {
         return postId;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
-    }
-
     public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Long commentId) {
-        this.commentId = commentId;
-    }
 }

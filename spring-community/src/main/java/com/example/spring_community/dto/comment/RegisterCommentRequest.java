@@ -11,7 +11,4 @@ public class RegisterCommentRequest {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }

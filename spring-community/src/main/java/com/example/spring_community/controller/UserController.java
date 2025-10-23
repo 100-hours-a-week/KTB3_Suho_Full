@@ -37,7 +37,7 @@ public class UserController {
     public ResponseEntity<ApiResponse<MyPageUserInfo>> getUserInfo(@PathVariable Long id){
         try {
             MyPageUserInfo userInfo = userService.getMyPageUserInfo(id);
-            ApiResponse<MyPageUserInfo> apiResponse = new ApiResponse("user_information_success", "회원 정보 조회가 정상적으로 완료됐습니다.", userInfo);
+            ApiResponse<MyPageUserInfo> apiResponse = new ApiResponse<>("user_information_success", "회원 정보 조회가 정상적으로 완료됐습니다.", userInfo);
             return ResponseEntity.status(200).body(apiResponse);
         } catch (NoSuchElementException e) {
             ApiResponse<MyPageUserInfo> errorResponse = new ApiResponse<>("not_found", e.getMessage(), null);
@@ -54,10 +54,10 @@ public class UserController {
             userService.deleteUser(id);
             return ResponseEntity.status(204).build();
         } catch (NoSuchElementException e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("not_found", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("not_found", e.getMessage(), null);
             return ResponseEntity.status(404).body(errorResponse);
         } catch (Exception e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("internal_server_error", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("internal_server_error", e.getMessage(), null);
             return ResponseEntity.status(500).body(errorResponse);
         }
     }
@@ -68,13 +68,13 @@ public class UserController {
             userService.patchUserNickname(id, request.getNickname());
             return ResponseEntity.status(204).build();
         } catch (IllegalArgumentException e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("invalid_request", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("invalid_request", e.getMessage(), null);
             return ResponseEntity.status(400).body(errorResponse);
         } catch (NoSuchElementException e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("not_found", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("not_found", e.getMessage(), null);
             return ResponseEntity.status(404).body(errorResponse);
         } catch (Exception e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("internal_server_error", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("internal_server_error", e.getMessage(), null);
             return ResponseEntity.status(500).body(errorResponse);
         }
     }
@@ -85,13 +85,13 @@ public class UserController {
             userService.patchUserPassword(id, request.getPassword());
             return ResponseEntity.status(204).build();
         } catch (IllegalArgumentException e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("invalid_request", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("invalid_request", e.getMessage(), null);
             return ResponseEntity.status(400).body(errorResponse);
         } catch (NoSuchElementException e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("not_found", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("not_found", e.getMessage(), null);
             return ResponseEntity.status(404).body(errorResponse);
         } catch (Exception e) {
-            ApiResponse<EmptyDto> errorResponse = new ApiResponse("internal_server_error", e.getMessage(), null);
+            ApiResponse<EmptyDto> errorResponse = new ApiResponse<>("internal_server_error", e.getMessage(), null);
             return ResponseEntity.status(500).body(errorResponse);
         }
     }

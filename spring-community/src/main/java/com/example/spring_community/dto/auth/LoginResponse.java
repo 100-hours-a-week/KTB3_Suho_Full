@@ -13,15 +13,7 @@ public class LoginResponse {
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
     public String getRefreshToken() {
         return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
     }
 }

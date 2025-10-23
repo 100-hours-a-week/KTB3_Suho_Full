@@ -3,6 +3,7 @@ package com.example.spring_community.service;
 import com.example.spring_community.domain.Comment;
 import com.example.spring_community.domain.Post;
 import com.example.spring_community.dto.comment.CommentItem;
+import com.example.spring_community.dto.common.Pagination;
 import com.example.spring_community.dto.post.*;
 import com.example.spring_community.dto.user.WriterInfo;
 import com.example.spring_community.repository.CommentRepository;
@@ -32,9 +33,9 @@ public class PostService {
         this.commentRepository = commentRepository;
     }
 
-    public List<PostItem> getPosts() {
-        Collection<Post> posts = postRepository.getPosts();
+    public GetPostsResponse getPosts(int size, Long cursor) {
         List<PostItem> postItems = new ArrayList<>();
+        List<Post> posts = postRepository.getPostsWithSize(size, cursor);
         for (Post post : posts) {
             try {
                 WriterInfo writerInfo = userRepository.getWriterInfo(post.getWriterId());
@@ -45,7 +46,9 @@ public class PostService {
                 continue;
             }
         }
-        return postItems;
+        Long lastCursor = posts.getLast().getId();
+        Pagination pagination = new Pagination(size, postRepository.getHasNext(lastCursor), lastCursor);
+        return new GetPostsResponse(postItems, pagination);
     }
 
     public Long registerPost(Long writerId, RegisterPostRequest request) {
@@ -54,35 +57,23 @@ public class PostService {
                 throw new NoSuchElementException("존재하지 않는 userId 입니다."); // 404 Error
             }
 
-            String createdAt = LocalDateTime.now()
-                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
             Post post = new Post(
                     writerId,
                     request.getTitle(),
                     request.getContent(),
                     request.getImageUrl(),
-                    createdAt
+                    getCurrentTime()
             );
 
             return postRepository.registerPost(post);
 
     }
 
-    public Post getPostById(Long postId) {
-        if (!postRepository.existsById(postId)) {
-            throw new NoSuchElementException("존재하지 않는 postId 입니다."); // 404 Error
-        }
-        return postRepository.getPostById(postId);
-    }
-
     public DetailPostResponse getDetailPostById(Long postId) {
-        if (!postRepository.existsById(postId)) {
-            throw new NoSuchElementException("존재하지 않는 postId 입니다."); // 404 Error
-        }
+        throwPostNotFoundException(postId);
+
         Post post = postRepository.getPostById(postId);
-        String createdAt = LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        String createdAt = post.getCreatedAt();
         WriterInfo writer = userRepository.getWriterInfo(post.getWriterId());
         DetailStatistic statistic = new DetailStatistic(
             likeRepository.countByPostId(post.getId()),
@@ -101,27 +92,28 @@ public class PostService {
     }
 
     public Long updatePost(Long postId, UpdatePostRequest request) {
-        if (!postRepository.existsById(postId)) {
-            throw new NoSuchElementException("존재하지 않는 게시물입니다."); // 404 Error
-        }
-        Post post = postRepository.getPostById(postId);
-        post.setTitle(request.getTitle());
-        post.setContent(request.getContent());
-        post.setPostImageUrl(request.getPostImageUrl());
-        return post.getId();
+        throwPostNotFoundException(postId);
+        postRepository.updatePost(postId, request.getTitle(), request.getContent(), request.getPostImageUrl(), getCurrentTime());
+        return postId;
+    }
+
+    private String getCurrentTime() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public void deletePost(Long postId) {
-        if (!postRepository.existsById(postId)) {
-            throw new NoSuchElementException("존재하지 않는 게시물입니다.");
-        }
+        throwPostNotFoundException(postId);
         postRepository.deletePost(postId);
     }
 
     public Long toggleLike(Long postId, Long userId) {
+        throwPostNotFoundException(postId);
+        return likeRepository.likeToggle(postId, userId);
+    }
+
+    private void throwPostNotFoundException(Long postId) {
         if (!postRepository.existsById(postId)) {
             throw new NoSuchElementException("존재하지 않는 게시물입니다.");
         }
-        return likeRepository.likeToggle(postId, userId);
     }
 }

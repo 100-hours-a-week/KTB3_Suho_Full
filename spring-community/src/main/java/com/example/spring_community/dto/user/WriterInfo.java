@@ -17,23 +17,12 @@ public class WriterInfo {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getNickname() {
         return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public Optional<String> getProfileImageUrl() {
         return profileImageUrl;
     }
 
-    public void setProfileImageUrl(Optional<String> profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
 }

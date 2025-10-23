@@ -53,6 +53,10 @@ public class CommentRepository {
         return comments.get(commentId);
     }
 
+    public void updateContent(Long commentId, String content) {
+        comments.get(commentId).updateContent(content);
+    }
+
     public void deleteComment(Long commentId) {
         comments.remove(commentId);
     }

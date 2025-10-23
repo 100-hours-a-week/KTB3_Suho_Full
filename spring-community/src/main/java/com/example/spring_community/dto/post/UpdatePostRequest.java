@@ -15,23 +15,12 @@ public class UpdatePostRequest {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getPostImageUrl() {
         return postImageUrl;
     }
 
-    public void setPostImageUrl(String postImageUrl) {
-        this.postImageUrl = postImageUrl;
-    }
 }

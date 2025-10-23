@@ -18,15 +18,7 @@ public class GetPostsResponse {
         return posts;
     }
 
-    public void setPosts(List<PostItem> posts) {
-        this.posts = posts;
-    }
-
     public Pagination getPagination() {
         return pagination;
-    }
-
-    public void setPagination(Pagination pagination) {
-        this.pagination = pagination;
     }
 }

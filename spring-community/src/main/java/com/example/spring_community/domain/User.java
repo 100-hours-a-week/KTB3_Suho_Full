@@ -16,44 +16,47 @@ public class User {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public Long getId() {
-        return id;
+    public User(Long id, String email, String password, String nickname, Optional<String> profileImageUrl) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.profileImageUrl = profileImageUrl;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public void setId(Long id) {
+        if(this.id != null) {
+            throw new IllegalStateException("ID가 이미 할당되었습니다.");
+        }
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public Optional<String> getProfileImageUrl() {
         return profileImageUrl;
-    }
-
-    public void setProfileImageUrl(Optional<String> profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
     }
 
     @Override

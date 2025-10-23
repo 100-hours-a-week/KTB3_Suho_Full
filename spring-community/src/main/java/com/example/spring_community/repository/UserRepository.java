@@ -52,14 +52,14 @@ public class UserRepository {
     public void patchUserNickname(Long userId, String nickname) {
         User user = users.get(userId);
         if (user != null) {
-            users.get(userId).setNickname(nickname);
+            users.get(userId).updateNickname(nickname);
         }
     }
 
     public void patchUserPassword(Long userId, String password) {
         User user = users.get(userId);
         if (user != null) {
-            users.get(userId).setPassword(password);
+            users.get(userId).updatePassword(password);
         }
     }
 

@@ -18,7 +18,4 @@ public class PatchUserNicknameRequest {
         return nickname;
     }
 
-    public void setName(String name) {
-        this.nickname = nickname;
-    }
 }

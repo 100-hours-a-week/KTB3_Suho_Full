@@ -2,14 +2,15 @@ package com.example.spring_community.controller;
 
 import com.example.spring_community.dto.common.ApiResponse;
 import com.example.spring_community.dto.common.EmptyDto;
-import com.example.spring_community.dto.common.Pagination;
 import com.example.spring_community.dto.post.*;
 import com.example.spring_community.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
+
+import static com.example.spring_community.util.PaginationConstants.DEFAULT_CURSOR;
+import static com.example.spring_community.util.PaginationConstants.DEFAULT_SIZE_STRING;
 
 @RestController
 @RequestMapping("/posts")
@@ -19,11 +20,13 @@ public class PostController {
         this.postService = postService;
     }
     @GetMapping
-    public ResponseEntity<ApiResponse<GetPostsResponse>> getPosts() {
+    public ResponseEntity<ApiResponse<GetPostsResponse>> getPosts(
+            @RequestParam(required = false, defaultValue = DEFAULT_SIZE_STRING) int size,
+            @RequestParam(required = false) Long nextCursor ) {
         try {
-            List<PostItem> posts = postService.getPosts();
-            Pagination pagination = new Pagination(20, true, 1L);
-            ApiResponse<GetPostsResponse> apiResponse = new ApiResponse<>("posts_success", "게시물 목록을 정상적으로 불러왔습니다.", new GetPostsResponse(posts, pagination));
+            nextCursor = nextCursor == null ? DEFAULT_CURSOR : nextCursor;
+            GetPostsResponse postsResponse = postService.getPosts(size, nextCursor);
+            ApiResponse<GetPostsResponse> apiResponse = new ApiResponse<>("posts_success", "게시물 목록을 정상적으로 불러왔습니다.", postsResponse);
             return ResponseEntity.status(200).body(apiResponse);
         } catch (Exception e) {
             ApiResponse<GetPostsResponse> errorResponse = new ApiResponse<>("internal_server_error", e.getMessage(), null);

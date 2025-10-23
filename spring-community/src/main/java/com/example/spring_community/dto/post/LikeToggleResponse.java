@@ -10,8 +10,4 @@ public class LikeToggleResponse {
     public Long getLikeId() {
         return likeId;
     }
-
-    public void setLikeId(Long likeId) {
-        this.likeId = likeId;
-    }
 }

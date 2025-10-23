@@ -15,23 +15,12 @@ public class Pagination {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public boolean isHasNext() {
         return hasNext;
-    }
-
-    public void setHasNext(boolean hasNext) {
-        this.hasNext = hasNext;
     }
 
     public Long getNextCursor() {
         return NextCursor;
     }
 
-    public void setNextCursor(Long nextCursor) {
-        NextCursor = nextCursor;
-    }
 }

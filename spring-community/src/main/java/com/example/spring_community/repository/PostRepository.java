@@ -1,6 +1,8 @@
 package com.example.spring_community.repository;
 
 import com.example.spring_community.domain.Post;
+import com.example.spring_community.dto.common.Pagination;
+import com.example.spring_community.dto.post.GetPostsResponse;
 import com.example.spring_community.dto.post.PostItem;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +32,7 @@ public class PostRepository {
 
     public Post getPostById(Long postId) {
         Post post = posts.get(postId);
-        post.setViews(post.getViews() + 1);
+        post.increaseViews();
         return post;
     }
 
@@ -55,13 +57,21 @@ public class PostRepository {
         return posts.values();
     }
 
-    public void updatePost(Long id, String title, String content, String postImageUrl) {
+    public void updatePost(Long id, String title, String content, String postImageUrl, String updatedAt) {
         if (existsById(id)) {
             Post post = posts.get(id);
-            post.setTitle(title);
-            post.setContent(content);
-            post.setPostImageUrl(postImageUrl);
+            post.updatePost(title, content, postImageUrl);
         }
+    }
+
+    public List<Post> getPostsWithSize(int size, Long cursor) {
+        return posts.values().stream().filter(post -> post.getId() >= cursor)
+                .sorted((p1, p2) -> Long.compare(p1.getId(), p2.getId()))
+                .limit(size).toList();
+    }
+
+    public boolean getHasNext(Long cursor) {
+        return !posts.values().stream().filter(post -> post.getId() > cursor).toList().isEmpty();
     }
 
     public boolean existsById(Long id) {

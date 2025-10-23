@@ -15,23 +15,11 @@ public class Statistic {
         return likeCount;
     }
 
-    public void setLikeCount(Long likeCount) {
-        this.likeCount = likeCount;
-    }
-
     public Long getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(Long viewCount) {
-        this.viewCount = viewCount;
-    }
-
     public Long getCommentCount() {
         return commentCount;
-    }
-
-    public void setCommentCount(Long commentCount) {
-        this.commentCount = commentCount;
     }
 }

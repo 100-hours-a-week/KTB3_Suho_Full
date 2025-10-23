@@ -21,11 +21,9 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public Long registerComment(Long postId, Long writerId, RegisterCommentRequest request) {
-        if (!postRepository.existsById(postId)) {
-            throw new NoSuchElementException("존재하지 않는 게시물입니다.");
-        }
 
+    public Long registerComment(Long postId, Long writerId, RegisterCommentRequest request) {
+        throwPostNotFoundException(postId);
         String createdAt = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
@@ -34,26 +32,26 @@ public class CommentService {
     }
 
     public Long updateComment(Long postId, Long commentId, UpdateCommentRequest request) {
-        if (!postRepository.existsById(postId)) {
-            throw new NoSuchElementException("존재하지 않는 게시물입니다.");
-        }
-        if (!commentRepository.existsById(commentId)) {
-            throw new NoSuchElementException("존재하지 않는 댓글입니다.");
-        }
-
-        Comment comment = commentRepository.getCommentById(commentId);
-        comment.setContent(request.getComment());
-        return comment.getId();
+        throwCommentNotFoundException(postId, commentId);
+        commentRepository.updateContent(commentId, request.getComment());
+        return commentId;
     }
 
     public void deleteComment(Long postId, Long commentId) {
+        throwCommentNotFoundException(postId, commentId);
+        commentRepository.deleteComment(commentId);
+    }
+
+    private void throwPostNotFoundException(Long postId) {
         if (!postRepository.existsById(postId)) {
             throw new NoSuchElementException("존재하지 않는 게시물입니다.");
         }
+    }
+
+    private void throwCommentNotFoundException(Long postId, Long commentId) {
+        throwPostNotFoundException(postId);
         if (!commentRepository.existsById(commentId)) {
             throw new NoSuchElementException("존재하지 않는 댓글입니다.");
         }
-
-        commentRepository.deleteComment(commentId);
     }
 }

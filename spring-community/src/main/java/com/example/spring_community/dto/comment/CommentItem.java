@@ -19,31 +19,15 @@ public class CommentItem {
         return commentId;
     }
 
-    public void setCommentId(Long commentId) {
-        this.commentId = commentId;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public WriterInfo getWriter() {
         return writer;
     }
 
-    public void setWriter(WriterInfo writer) {
-        this.writer = writer;
-    }
-
     public String getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
     }
 }

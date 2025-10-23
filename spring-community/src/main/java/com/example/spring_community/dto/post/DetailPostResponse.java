@@ -16,8 +16,8 @@ public class DetailPostResponse {
     private List<CommentItem> comments;
 
     public DetailPostResponse(Long postId, String title, String content, String postImageUrl,
-                             String createdAt, WriterInfo writer, DetailStatistic statistics,
-                             List<CommentItem> comments) {
+                              String createdAt, WriterInfo writer, DetailStatistic statistics,
+                              List<CommentItem> comments) {
         this.postId = postId;
         this.title = title;
         this.content = content;
@@ -40,55 +40,27 @@ public class DetailPostResponse {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getPostImageUrl() {
         return postImageUrl;
     }
 
-    public void setPostImageUrl(String postImageUrl) {
-        this.postImageUrl = postImageUrl;
-    }
-
     public String getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
     }
 
     public WriterInfo getWriter() {
         return writer;
     }
 
-    public void setWriter(WriterInfo writer) {
-        this.writer = writer;
-    }
-
     public DetailStatistic getStatistics() {
         return statistics;
     }
 
-    public void setStatistics(DetailStatistic statistics) {
-        this.statistics = statistics;
-    }
-
     public List<CommentItem> getComments() {
         return comments;
-    }
-
-    public void setComments(List<CommentItem> comments) {
-        this.comments = comments;
     }
 }

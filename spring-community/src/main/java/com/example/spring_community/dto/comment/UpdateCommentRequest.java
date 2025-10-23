@@ -11,7 +11,4 @@ public class UpdateCommentRequest {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
 }

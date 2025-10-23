@@ -11,7 +11,4 @@ public class RegisterUserResponse {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }

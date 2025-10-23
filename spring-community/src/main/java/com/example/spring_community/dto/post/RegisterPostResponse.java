@@ -10,8 +10,4 @@ public class RegisterPostResponse {
     public Long getPostId() {
         return postId;
     }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
-    }
 }

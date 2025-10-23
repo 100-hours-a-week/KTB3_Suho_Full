@@ -17,31 +17,15 @@ public class DetailStatistic {
         return likeCount;
     }
 
-    public void setLikeCount(Long likeCount) {
-        this.likeCount = likeCount;
-    }
-
     public Long getCommentCount() {
         return commentCount;
-    }
-
-    public void setCommentCount(Long commentCount) {
-        this.commentCount = commentCount;
     }
 
     public Long getViewCount() {
         return viewCount;
     }
 
-    public void setViewCount(Long viewCount) {
-        this.viewCount = viewCount;
-    }
-
     public Boolean getIsLiked() {
         return isLiked;
-    }
-
-    public void setIsLiked(Boolean isLiked) {
-        this.isLiked = isLiked;
     }
 }
