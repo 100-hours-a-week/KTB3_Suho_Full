@@ -11,92 +11,26 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@Repository
-public class UserRepository {
-    private Map<Long, User> users;
-    private Long sequence = 1L;  // 1부터 시작
+public interface UserRepository {
+    Long registerUser(User user);
 
-    public UserRepository() {
-        users = new LinkedHashMap<>();
-        initTestData();
-    }
+    void deleteUser(Long userId);
 
-    private void initTestData() {
-        // 테스트 유저 1
-        registerUser(new User("test1@example.com", "password123", "테스터1", Optional.of("https://example.com/profile1.jpg")));
-        // 테스트 유저 2
-        registerUser(new User("test2@example.com", "password456", "테스터2", Optional.empty()));
-        // 테스트 유저 3
-        registerUser(new User("admin@example.com", "admin1234", "관리자", Optional.of("https://example.com/admin.jpg")));
-    }
+    void patchUserNickname(Long userId, String nickname);
 
-    public UserRepository(Map<Long, User> users) {
-        this.users = users;
-    }
+    void patchUserPassword(Long userId, String password);
 
-    public Long registerUser(User user) {
-        if (user.getId() == null) {
-            while (existsById(sequence)) {
-                sequence++;
-            }
-            user.setId(sequence);
-        }
-        users.put(user.getId(), user);
-        return user.getId();
-    }
+    boolean existsByEmail(String email);
 
-    public void deleteUser(Long userId) {
-        users.remove(userId);
-    }
+    boolean existsByNickname(String nickname);
 
-    public void patchUserNickname(Long userId, String nickname) {
-        User user = users.get(userId);
-        if (user != null) {
-            users.get(userId).updateNickname(nickname);
-        }
-    }
+    boolean existsById(Long id);
 
-    public void patchUserPassword(Long userId, String password) {
-        User user = users.get(userId);
-        if (user != null) {
-            users.get(userId).updatePassword(password);
-        }
-    }
+    boolean isEqualsOldPassword(Long id, String newPassword);
 
-    public boolean existsByEmail(String email) {
-        return users.values().stream().anyMatch(user -> user.getEmail().equals(email));
-    }
+    MyPageUserInfo getMyPageUserInfo(Long userId);
 
-    public boolean existsByNickname(String nickname) {
-        return users.values().stream().anyMatch(user -> user.getNickname().equals(nickname));
-    }
+    WriterInfo getWriterInfo(Long userId);
 
-    public boolean existsById(Long id) {
-        return users.containsKey(id);
-    }
-
-    public boolean isEqualsOldPassword(Long id, String newPassword) {
-        User user = users.get(id);
-        if (user != null) {
-            return user.getPassword().equals(newPassword);
-        }
-        return true;
-    }
-
-    public MyPageUserInfo getMyPageUserInfo(Long userId) {
-        User user = users.get(userId);
-        return new MyPageUserInfo(user.getEmail(), user.getNickname(), user.getPassword());
-    }
-
-    public WriterInfo getWriterInfo(Long userId) {
-        User user = users.get(userId);
-        return new WriterInfo(user.getId(), user.getNickname(),user.getProfileImageUrl());
-    }
-
-    public User findByEmail(String email) {
-        return users.values().stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst()
-                .orElse(null);
-    }
+    User findByEmail(String email);
 }

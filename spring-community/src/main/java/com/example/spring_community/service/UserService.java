@@ -24,7 +24,7 @@ public class UserService {
         if (userRepository.existsByNickname(request.getNickname())) {
             throw new IllegalArgumentException("이미 등록된 닉네임입니다."); // 400 Error
         }
-        User user = new User(request.getEmail(), request.getPassword(), request.getNickname(), Optional.ofNullable(request.getProfileImageUrl()));
+        User user = new User(request.getEmail(), request.getPassword(), request.getNickname(), request.getProfileImageUrl());
         return userRepository.registerUser(user);
     }
 

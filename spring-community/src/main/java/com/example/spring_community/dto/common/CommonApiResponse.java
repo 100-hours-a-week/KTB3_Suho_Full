@@ -1,11 +1,11 @@
 package com.example.spring_community.dto.common;
 
-public class ApiResponse<T> {
+public class CommonApiResponse<T> {
     private String code;
     private String message;
     private T data;
 
-    public ApiResponse(String code, String message, T data) {
+    public CommonApiResponse(String code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -18,7 +18,6 @@ public class ApiResponse<T> {
     public String getMessage() {
         return message;
     }
-
 
     public T getData() {
         return data;

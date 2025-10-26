@@ -7,16 +7,16 @@ public class User {
     private String email;
     private String password;
     private String nickname;
-    private Optional<String> profileImageUrl;
+    private String profileImageUrl;
 
-    public User (String email, String password, String nickname, Optional<String> profileImageUrl) {
+    public User (String email, String password, String nickname, String profileImageUrl) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.profileImageUrl = profileImageUrl;
     }
 
-    public User(Long id, String email, String password, String nickname, Optional<String> profileImageUrl) {
+    public User(Long id, String email, String password, String nickname, String profileImageUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -55,7 +55,7 @@ public class User {
         return nickname;
     }
 
-    public Optional<String> getProfileImageUrl() {
+    public String getProfileImageUrl() {
         return profileImageUrl;
     }
 

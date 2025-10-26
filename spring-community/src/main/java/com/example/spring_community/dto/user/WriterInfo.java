@@ -1,13 +1,11 @@
 package com.example.spring_community.dto.user;
 
-import java.util.Optional;
-
 public class WriterInfo {
     private Long userId;
     private String nickname;
-    private Optional<String> profileImageUrl;
+    private String profileImageUrl;
 
-    public WriterInfo(Long userId, String nickname, Optional<String> profileImageUrl) {
+    public WriterInfo(Long userId, String nickname, String profileImageUrl) {
         this.userId = userId;
         this.nickname = nickname;
         this.profileImageUrl = profileImageUrl;
@@ -21,7 +19,7 @@ public class WriterInfo {
         return nickname;
     }
 
-    public Optional<String> getProfileImageUrl() {
+    public String getProfileImageUrl() {
         return profileImageUrl;
     }
 

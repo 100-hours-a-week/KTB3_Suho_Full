@@ -4,6 +4,7 @@ import com.example.spring_community.domain.Comment;
 import com.example.spring_community.dto.comment.RegisterCommentRequest;
 import com.example.spring_community.dto.comment.UpdateCommentRequest;
 import com.example.spring_community.repository.CommentRepository;
+import com.example.spring_community.repository.CommentRepositoryImpl;
 import com.example.spring_community.repository.PostRepository;
 import org.springframework.stereotype.Service;
 

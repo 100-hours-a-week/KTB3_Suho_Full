@@ -3,24 +3,24 @@ package com.example.spring_community.dto.common;
 public class Pagination {
     private int size;
     private boolean hasNext;
-    private Long NextCursor;
+    private Long nextCursor;
 
     public Pagination(int size, boolean hasNext, Long nextCursor) {
         this.size = size;
         this.hasNext = hasNext;
-        NextCursor = nextCursor;
+        this.nextCursor = nextCursor;
     }
 
     public int getSize() {
         return size;
     }
 
-    public boolean isHasNext() {
+    public boolean getHasNext() {
         return hasNext;
     }
 
     public Long getNextCursor() {
-        return NextCursor;
+        return nextCursor;
     }
 
 }

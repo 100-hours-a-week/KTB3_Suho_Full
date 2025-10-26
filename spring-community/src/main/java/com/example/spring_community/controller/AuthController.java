@@ -2,8 +2,13 @@ package com.example.spring_community.controller;
 
 import com.example.spring_community.dto.auth.LoginRequest;
 import com.example.spring_community.dto.auth.LoginResponse;
-import com.example.spring_community.dto.common.ApiResponse;
+import com.example.spring_community.dto.common.CommonApiResponse;
 import com.example.spring_community.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +22,15 @@ public class AuthController {
     }
 
     @PostMapping("/tokens")
-    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
-        try {
-            LoginResponse response = authService.login(request);
-            ApiResponse<LoginResponse> apiResponse = new ApiResponse<>("login_success", "로그인에 성공했습니다.", response);
-            return ResponseEntity.status(200).body(apiResponse);
-        } catch (IllegalArgumentException e) {
-            ApiResponse<LoginResponse> errorResponse = new ApiResponse<>("invalid_request", e.getMessage(), null);
-            return ResponseEntity.status(400).body(errorResponse);
-        } catch (Exception e) {
-            ApiResponse<LoginResponse> errorResponse = new ApiResponse<>("internal_server_error", e.getMessage(), null);
-            return ResponseEntity.status(500).body(errorResponse);
-        }
+    @Operation(summary = "로그인", description = "ID, 비밀번호를 통해 등록된 사용자인지 확인합니다.")
+    @ApiResponse(responseCode = "200", description = "OK")
+    @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation =
+            CommonApiResponse.class)))
+    @ApiResponse(responseCode = "500", description = "internal_server_error", content = @Content(schema = @Schema(implementation =
+            CommonApiResponse.class)))
+    public ResponseEntity<CommonApiResponse<LoginResponse>> login(@RequestBody LoginRequest request) {
+        LoginResponse response = authService.login(request);
+        CommonApiResponse<LoginResponse> commonApiResponse = new CommonApiResponse<>("login_success", "로그인에 성공했습니다.", response);
+        return ResponseEntity.status(200).body(commonApiResponse);
     }
 }
