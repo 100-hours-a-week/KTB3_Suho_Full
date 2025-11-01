@@ -58,7 +58,7 @@ public class CommentController {
     @DeleteMapping("/{commentId}")
     @Operation(summary = "댓글 삭제", description = "댓글을 삭제합니다.")
     @ApiResponse(responseCode = "204", description = "No Content")
-    public ResponseEntity<Void> deleteComment(
+    public ResponseEntity<Void> deleteComment (
             @PathVariable Long postId,
             @PathVariable Long commentId) {
         commentService.deleteComment(postId, commentId);
