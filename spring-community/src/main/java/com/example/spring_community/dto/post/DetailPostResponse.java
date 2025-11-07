@@ -2,9 +2,11 @@ package com.example.spring_community.dto.post;
 
 import com.example.spring_community.dto.comment.CommentItem;
 import com.example.spring_community.dto.user.WriterInfo;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class DetailPostResponse {
     private Long postId;
     private String title;

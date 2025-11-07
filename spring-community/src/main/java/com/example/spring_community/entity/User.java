@@ -1,13 +1,13 @@
-package kr.adapterz.jpa_practice.entity;
+package com.example.spring_community.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-
+import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name="users")
+@RequiredArgsConstructor
 public class User {
 
     @Id
@@ -41,12 +41,6 @@ public class User {
 
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
-
-
-
-    protected User() {
-        // JPA용 기본 생성자
-    }
 
     public User(String email, String password, String nickname) {
 
@@ -91,14 +85,6 @@ public class User {
         this.nickname = newNickname;
 
         updatedAt = LocalDateTime.now();
-
-    }
-
-    public void delete() {
-
-        this.isDeleted = true;
-
-        this.deletedAt = LocalDateTime.now();
 
     }
 

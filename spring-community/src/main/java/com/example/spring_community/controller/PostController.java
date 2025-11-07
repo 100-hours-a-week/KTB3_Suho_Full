@@ -24,9 +24,11 @@ import static com.example.spring_community.util.PaginationConstants.DEFAULT_SIZE
         CommonApiResponse.class)))
 public class PostController {
     private final PostService postService;
+
     public PostController(PostService postService) {
         this.postService = postService;
     }
+
     @GetMapping
     @Operation(summary = "게시물 목록 조회", description = "게시물 목록을 조회합니다.")
     @ApiResponse(responseCode = "200", description = "OK")

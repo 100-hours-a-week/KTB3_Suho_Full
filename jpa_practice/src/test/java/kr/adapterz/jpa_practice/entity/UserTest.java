@@ -21,7 +21,6 @@ class UserTest {
     void idTest() {
 
         User user = new User("tester@adaperterz.kr", "123aS!", "Adapterz");
-
         em.persist(user);
 
     }

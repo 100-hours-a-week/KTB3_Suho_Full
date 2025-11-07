@@ -43,7 +43,7 @@ public class PostService {
                 PostItem postItem = new PostItem(post.getId(), post.getTitle(), writerInfo, statistic, post.getCreatedAt());
                 postItems.add(postItem);
             } catch (Exception e) {
-                continue;
+                System.out.println("PostService getPosts:: " + e.getMessage());
             }
         }
         Long lastCursor = posts.getLast().getId();
